@@ -12,6 +12,10 @@ module.exports = mongoose.model('Todo', {
     priority: {
         type: String, //Workaround, damit Option-Felder richtig angezeigt werden!
         default: '2'
+    },
+    done: {
+        type: Boolean,
+        default: false
     }
 });
 

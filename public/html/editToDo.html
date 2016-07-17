@@ -3,12 +3,15 @@
     <h1>Aufgabe bearbeiten</h1>
 
 
-    <form role="form">
+    <form role="form" name="newTaskForm"> <!-- bei Validierungen: formname.inputname --> <!-- ng-model ist das Objekt -->
         <div class="row">
             <div class="col-sm-12">
-                <div class="form-group">
-                  <label>Aufgabe:</label>
-                  <input type="text" class="form-control" ng-model="task.text">
+                <div class="form-group" ng-class="{ 'has-error' : newTaskForm.aufgabentext.$invalid && !newTaskForm.aufgabentext.$pristine }">
+                    <label>Aufgabe:</label>
+                    <input type="text" class="form-control" ng-model="task.text" placeholder="Bitte Aufgabe eingeben!" name="aufgabentext" required>
+                    <span ng-show="newTaskForm.aufgabentext.$dirty && newTaskForm.aufgabentext.$invalid">
+                        <span ng-show="newTaskForm.aufgabentext.$error.required" class="help-block">Bitte den Aufgaben-Text eingeben!</span>
+                    </span>
                 </div>
             </div>
 
@@ -16,7 +19,7 @@
 
                 <div class="form-group">
                   <label for="priority">Priorität</label>
-                  <select class="form-control" id="priority" ng-model="task.priority" name="priority">
+                  <select class="form-control" id="priority" ng-model="task.priority" name="priority" >
                     <option value=1>Unwichtig</option>
                     <option value=2>Mittel</option>
                     <option value=3>Sehr Wichtig!</option>
@@ -29,7 +32,7 @@
 
                 <div class="form-group">
                   <label>Name:</label>
-                  <input type="text" class="form-control" ng-model="task.name">
+                  <input type="text" class="form-control" ng-model="task.name" placeholder="Bitte Name eingeben! (optional)">
                 </div>
 
             </div>
@@ -38,7 +41,7 @@
             <div class="col-sm-12">
 
 
-                <button class="btn btn-primary" ng-click="saveTask()"><i class="glyphicon glyphicon-floppy-disk"></i> {{buttonText}}</button>
+                <button class="btn btn-primary" ng-click="saveTask()" ng-disabled="newTaskForm.$invalid || isClean()"><i class="glyphicon glyphicon-floppy-disk"></i> {{buttonText}}</button>
                 <a class="btn btn-default" href= "#/toDos"><i class="glyphicon glyphicon-remove"></i> Abbrechen </a>
                 <button type="button" class="btn btn-danger" ng-click="deleteTodo(task._id)"><span class="glyphicon glyphicon-trash"></span> Löschen</button>
             </div>

@@ -1,6 +1,5 @@
 var controllers = angular.module('toDoAppControllers', []);
 
-
 	controllers.controller('NavigationController', function($scope, $http, $location, ToDoFactory) {
 
         $scope.isActive = function (viewLocation) {
@@ -45,6 +44,7 @@ var controllers = angular.module('toDoAppControllers', []);
 	controllers.controller('EditToDoController', function($scope, $http, $route, $location,  ToDoFactory) {
 
         $scope.loading = true;
+        var original = {};
 
         var toDoID = $route.current.params.TODOID;
 
@@ -54,9 +54,9 @@ var controllers = angular.module('toDoAppControllers', []);
             ToDoFactory.get(toDoID)
             .success(function(data) {
                 $scope.task = data;
+                original = angular.copy(data);  // mit = wäre es by Reference - bei jeder Änderung im Formular würde ich Original ändern
                 $scope.loading = false;
                 $scope.buttonText = "Änderungen speichern!";
-                console.log($scope.task.priority);
             });
 
 
@@ -65,15 +65,12 @@ var controllers = angular.module('toDoAppControllers', []);
             $scope.buttonText = "Aufgabe erstellen!";
         }
 
-
-
             // SAVE: Update and Post ==================================================================
             $scope.saveTask = function() {
 
                 $scope.loading = true;
 
-                if ($scope.task._id !== undefined) {
-                    //console.log("update");
+                if ($scope.task._id !== undefined) { //Update
 
                     // call the create function from our service (returns a promise object)
                     ToDoFactory.update($scope.task)
@@ -89,8 +86,7 @@ var controllers = angular.module('toDoAppControllers', []);
                         });
 
 
-                } else {
-                    //console.log("neu");
+                } else { //Neu
 
                     // call the create function from our service (returns a promise object)
                     ToDoFactory.create($scope.task)
@@ -103,7 +99,6 @@ var controllers = angular.module('toDoAppControllers', []);
                             $location.path('/toDos');
                         });
                 }
-
 
             }
 
@@ -124,6 +119,12 @@ var controllers = angular.module('toDoAppControllers', []);
 
             }
 		};
+
+
+        //Extras
+        $scope.isClean = function() { //wurde Task im Formular bearbeitet? -> dann speicherbar
+            return angular.equals(original, $scope.task);
+        }
 
 
     });
