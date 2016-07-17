@@ -7,7 +7,7 @@ var toDoAppServies = angular.module('toDoAppServices', []);
 			getAll : function() {
 				return $http.get('/api/todos');
 			},
-			get : function() {
+			get : function(id) {
 				return $http.get('/api/todos/'+id);
 			},
 			create : function(todoData) {

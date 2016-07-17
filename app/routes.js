@@ -39,6 +39,22 @@ module.exports = function (app) {
 
     });
 
+
+        // update
+    app.put('/api/todos', function (req, res) {
+        // create a todo, information comes from AJAX request from Angular
+
+        Todo.update({
+            _id: req.body._id
+        },req.body, function (err, todo) {
+            if (err)
+                res.send(err);
+                        getTodos(res); //dann wird es im Front-End als Success erkannt
+
+        });
+
+    });
+
     // delete a todo
     app.delete('/api/todos/:todo_id', function (req, res) {
         Todo.remove({
@@ -48,6 +64,19 @@ module.exports = function (app) {
                 res.send(err);
 
             getTodos(res);
+        });
+    });
+
+    //single GET
+    app.get('/api/todos/:todo_id', function (req, res) {
+
+        Todo.findOne({
+            _id: req.params.todo_id
+        },  function(err, todo) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(todo); // return all todos in JSON format
         });
     });
 

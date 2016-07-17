@@ -1,0 +1,22 @@
+<div class="container">
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Aufgabe</th>
+            <th>Aktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="task in toDos">
+            <td>{{task.text}}</td>
+            <td>
+                <a class="btn btn-default" href="#/toDos/{{task._id}}"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</a>
+                <button type="button" class="btn btn-danger" ng-click="deleteTodo(task._id)"><span class="glyphicon glyphicon-trash"></span> Löschen</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+                    <a class="btn btn-default" href="#/toDos/0"><span class="glyphicon glyphicon-new"></span> Neu</a>
+
+</div>

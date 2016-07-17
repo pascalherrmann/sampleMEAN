@@ -19,10 +19,13 @@ toDoApp.config(['$routeProvider',
                 when('/', {
                 templateUrl: 'html/main.html',
                 controller: 'MainController'
+            }). when('/toDos', {
+                templateUrl: 'html/toDos.html',
+                controller: 'ToDosController'
             }).
-                when('/newGame', {
-                templateUrl: 'app/html/newGame.html',
-                controller: 'NewGameCtrl'
+                when('/toDos/:TODOID', {
+                templateUrl: 'html/editToDo.html',
+                controller: 'EditToDoController'
             }).
                 otherwise({
                 redirectTo: '/'
