@@ -1,31 +1,23 @@
-# Node Todo App
+# Sample MEAN App
 
-A Node app built with MongoDB and Angular. For demonstration purposes and a tutorial.
+Diese Web-App enthält eine Reihe von wichtigen Angular-Funktionen (z.B. CRUD-Operatio) und dient als Vorlega für Projekte.
 
-Node provides the RESTful API. Angular provides the frontend and accesses the API. MongoDB stores like a hoarder.
+## TechStack
 
-## Requirements
-
-- [Node and npm](http://nodejs.org)
-- MongoDB: Make sure you have your own local or remote MongoDB database URI configured in `config/database.js`
+- Node.js und npm (Node Package Manager)
+- MongoDB (lokaler Datenbank URL wird konfiguriert in `config/database.js`)
 
 ## Installation
 
-1. Clone the repository: `git clone git@github.com:scotch-io/node-todo`
-2. Install the application: `npm install`
-3. Place your own MongoDB URI in `config/database.js`
-3. Start the server: `node server.js`
-4. View in browser at `http://localhost:8080`
+1. Repository klonen: `git clone https://github.com/pascalherrmann/sampleMEAN`
+2. Node-Module installieren: `npm install`
+3. MongoDB-URL einfügen: `config/database.js`
+3. Server starten: `node server.js`
+4. Im Browser aufrufen `http://localhost:8080`
 
-## Tutorial Series
+## Enthaltene Samples
 
-This repo corresponds to the Node Todo Tutorial Series on [scotch.io](http://scotch.io)
-
-Each branch represents a certain tutorial.
-- tut1-starter: [Creating a Single Page Todo App with Node and Angular](http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular)
-- tut2-organization: [Application Organization and Structure](https://scotch.io/tutorials/node-and-angular-to-do-app-application-organization-and-structure)
-- tut3-services: [Controllers and Services](https://scotch.io/tutorials/node-and-angular-to-do-app-controllers-and-services)
-
-Happy Todo-ing!
-
-![Todo-aholic](http://i.imgur.com/ikyqgrn.png)
+Dieses Projekt wird stets erweitert. Momentan sind enthalten:
+- Routing
+- CRUD
+- Navigation
