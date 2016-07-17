@@ -65,9 +65,16 @@ var toDoAppControllers = angular.module('toDoAppControllers', []);
             .success(function(data) {
                 $scope.task = data;
                 $scope.loading = false;
+                $scope.buttonText = "Änderungen speichern!";
+
             });
 
-        }else console.log("neu");
+        }else{
+            $scope.buttonText = "Aufgabe erstellen!";
+
+        console.log("neu");
+
+        }
 
 
 
@@ -114,14 +121,20 @@ var toDoAppControllers = angular.module('toDoAppControllers', []);
 
         // DELETE ==================================================================
 		$scope.deleteTodo = function(id) {
-			$scope.loading = true;
 
-			ToDoFactory.delete(id)
-				// if successful creation, call our get function to get all the new todos
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.toDos = data; // assign our new list of todos
-				});
+            if(confirm("Wollen Sie wirklichen folgende Aufgabe löschen: "+id)==true){
+
+                $scope.loading = true;
+
+                ToDoFactory.delete(id)
+                    // if successful creation, call our get function to get all the new todos
+                    .success(function(data) {
+                        $scope.loading = false;
+                        //$scope.toDos = data; // assign our new list of todos
+                        $location.path('/toDos');
+                });
+
+            }
 		};
 
 
@@ -141,14 +154,17 @@ var toDoAppControllers = angular.module('toDoAppControllers', []);
         // DELETE ==================================================================
 		// delete a todo after checking it
 		$scope.deleteTodo = function(id) {
-			$scope.loading = true;
+            if(confirm("Wollen Sie wirklichen folgende Aufgabe löschen: "+id)==true){
 
-			ToDoFactory.delete(id)
-				// if successful creation, call our get function to get all the new todos
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.toDos = data; // assign our new list of todos
-				});
+                $scope.loading = true;
+
+                ToDoFactory.delete(id)
+                    // if successful creation, call our get function to get all the new todos
+                    .success(function(data) {
+                        $scope.loading = false;
+                        $scope.toDos = data; // assign our new list of todos
+                    });
+            }
 		};
 
     }]);
