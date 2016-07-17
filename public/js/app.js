@@ -17,8 +17,8 @@ toDoApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
                 when('/', {
-                templateUrl: 'html/main.html',
-                controller: 'MainController'
+                templateUrl: 'html/start.html',
+                controller: 'StartController'
             }). when('/toDos', {
                 templateUrl: 'html/toDos.html',
                 controller: 'ToDosController'
@@ -26,6 +26,10 @@ toDoApp.config(['$routeProvider',
                 when('/toDos/:TODOID', {
                 templateUrl: 'html/editToDo.html',
                 controller: 'EditToDoController'
+            }).
+                when('/classic', {
+                templateUrl: 'html/classic.html',
+                controller: 'ClassicController'
             }).
                 otherwise({
                 redirectTo: '/'

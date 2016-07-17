@@ -1,1 +1,1 @@
-var toDoAppFilters = angular.module('toDoAppFilters', []);
+var filters = angular.module('toDoAppFilters', []);

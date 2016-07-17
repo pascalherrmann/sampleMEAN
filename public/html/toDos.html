@@ -1,17 +1,19 @@
 <div>
 
-    <h1>Aufgaben</h1>
+    <h1>Aufgaben (Aktuell {{toDos.length}}) </h1>
 
     <table class="table">
         <thead>
           <tr>
             <th>Aufgabe</th>
+            <th>Priorität</th>
             <th width="250"><a class="btn btn-default" href="#/toDos/0"><span class="glyphicon glyphicon-plus"></span> Neue Aufgabe erstellen</a></th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="task in toDos">
+          <tr ng-repeat="task in toDos" ng-class="[{'text-success': task.priority==1},{'text-danger': task.priority==3}]">
             <td>{{task.text}}</td>
+            <td>{{task.priority}}</td>
             <td>
                 <a class="btn btn-default" href="#/toDos/{{task._id}}"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</a>
                 <button type="button" class="btn btn-danger" ng-click="deleteTodo(task._id)"><span class="glyphicon glyphicon-trash"></span> Löschen</button>

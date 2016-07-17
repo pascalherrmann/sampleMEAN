@@ -5,8 +5,7 @@
 
     <form role="form">
         <div class="row">
-
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="form-group">
                   <label>Aufgabe:</label>
                   <input type="text" class="form-control" ng-model="task.text">
@@ -14,17 +13,35 @@
             </div>
 
             <div class="col-sm-6">
+
+                <div class="form-group">
+                  <label for="priority">Priorität</label>
+                  <select class="form-control" id="priority" ng-model="task.priority" name="priority">
+                    <option value=1>Unwichtig</option>
+                    <option value=2>Mittel</option>
+                    <option value=3>Sehr Wichtig!</option>
+                  </select>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
                 <div class="form-group">
                   <label>Name:</label>
                   <input type="text" class="form-control" ng-model="task.name">
                 </div>
+
             </div>
 
-            <button type="button" class="btn btn-danger" ng-click="deleteTodo(task._id)">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </button>
-            <button class="btn btn-primary" ng-click="saveTask()"><i class="glyphicon glyphicon-floppy-disk"></i> {{buttonText}}</button>
-            <a class="btn btn-default" href= "#/toDos"><i class="glyphicon glyphicon-remove"></i> Abbrechen </a>
+
+            <div class="col-sm-12">
+
+
+                <button class="btn btn-primary" ng-click="saveTask()"><i class="glyphicon glyphicon-floppy-disk"></i> {{buttonText}}</button>
+                <a class="btn btn-default" href= "#/toDos"><i class="glyphicon glyphicon-remove"></i> Abbrechen </a>
+                <button type="button" class="btn btn-danger" ng-click="deleteTodo(task._id)"><span class="glyphicon glyphicon-trash"></span> Löschen</button>
+            </div>
         </div>
     </form>
 

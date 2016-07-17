@@ -25,9 +25,13 @@ module.exports = function (app) {
     // create todo and send back all todos after creation
     app.post('/api/todos', function (req, res) {
 
+        console.log(req.body);
+
         // create a todo, information comes from AJAX request from Angular
         Todo.create({
             text: req.body.text,
+            name: req.body.name,
+            priority:req.body.priority,
             done: false
         }, function (err, todo) {
             if (err)
@@ -46,7 +50,8 @@ module.exports = function (app) {
 
         Todo.update({
             _id: req.body._id
-        },req.body, function (err, todo) {
+        },req.body, //wird eingesetzt in Datenbank
+            function (err, todo) { //Callback
             if (err)
                 res.send(err);
                         getTodos(res); //dann wird es im Front-End als Success erkannt
