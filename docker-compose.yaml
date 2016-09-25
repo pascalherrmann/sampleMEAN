@@ -1,0 +1,17 @@
+version: '2'
+services:
+  my_db:
+    image: mongo:3.3
+    restart: always
+
+  my_application:
+    depends_on:
+      - my_db
+    image: node-demo-image:latest
+    links:
+      - my_db:tasksdb
+    ports:
+      - "8080"
+    restart: always
+    environment:
+      UMGEBUNGSVARIABLE: tasksdb:27017
