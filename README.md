@@ -21,3 +21,14 @@ Dieses Projekt wird stets erweitert. Momentan sind enthalten:
 - Routing
 - CRUD
 - Navigation
+
+
+
+___
+# Weitere Tipps
+#### Umgebungsvariablen
+* auch möglich als:
+```
+var databaseUrl = (process.env.DATABASE_URL ||
+    "mysql2://sailspong:sailspong@127.0.0.1:3306/pong_matcher_sails_development")
+```
