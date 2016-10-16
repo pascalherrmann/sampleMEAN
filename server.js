@@ -14,7 +14,7 @@ var cloudFoundryService = JSON.parse(process.env.VCAP_SERVICES);
 // configuration ===============================================================
 if(UMGEBUNGSVARIABLE) mongoose.connect('mongodb://'+UMGEBUNGSVARIABLE+"/toDo"); //Umgebungsvariable wurde aktiv eingetragen - wird bevorzugt
 else if (cloudFoundryService.user-provided[0].credentials.uri) mongoose.connect(cloudFoundryService.user-provided[0].credentials.uri+"/toDo");
-else if (cloudFoundryService.mlab[0].credentials.uri) mongoose.connect('cloudFoundryService.mlab[0].credentials.uri+"/toDo");
+else if (cloudFoundryService.mlab[0].credentials.uri) mongoose.connect(cloudFoundryService.mlab[0].credentials.uri+"/toDo");
 else mongoose.connect(database.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
 
 app.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
