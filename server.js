@@ -1,23 +1,28 @@
 // set up ======================================================================
 var express = require('express');
-var app = express(); 						// create our app w/ express
-var mongoose = require('mongoose'); 				// mongoose for mongodb
-var port = process.env.PORT || 8080; 				// set the port
-var database = require('./config/database'); 			// load the database config
+var app = express();                                            // create our app w/ express
+var mongoose = require('mongoose');                             // mongoose for mongodb
+var port = process.env.PORT || 8080;                            // set the port
+var database = require('./config/database');                    // load the database config
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 var UMGEBUNGSVARIABLE = process.env.UMGEBUNGSVARIABLE;
-var cloudFoundryService = JSON.parse(process.env.VCAP_SERVICES);
+
+var cloudFoundryService = {};
+if(process.env.VCAP_SERVICES){
+cloudFoundryService = JSON.parse(process.env.VCAP_SERVICES);
+}
 
 // configuration ===============================================================
 if(UMGEBUNGSVARIABLE) mongoose.connect('mongodb://'+UMGEBUNGSVARIABLE+"/toDo"); //Umgebungsvariable wurde aktiv eingetragen - wird bevorzugt
-else if (cloudFoundryService.user-provided[0].credentials.uri) mongoose.connect(cloudFoundryService.user-provided[0].credentials.uri+"/toDo");
-else if (cloudFoundryService.mlab[0].credentials.uri) mongoose.connect(cloudFoundryService.mlab[0].credentials.uri+"/toDo");
-else mongoose.connect(database.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
+else if ("mlab" in cloudFoundryService) mongoose.connect(cloudFoundryService.mlab[0].credentials.uri+"/toDo");
+else if ("user-provided" in cloudFoundryService) mongoose.connect(cloudFoundryService.user-provided[0].credentials.uri+"/toDo");
 
-app.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
+else mongoose.connect(database.localUrl);       // Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
+
+app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
