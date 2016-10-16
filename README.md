@@ -44,9 +44,10 @@ docker-compose up
 ### Cloud Foundry
 * Repository klonen: `git clone https://github.com/pascalherrmann/sampleMean`
 * hinein navigieren: `cd sampleMean`
-* in Cloud Foundry pushen: `cf push chatapp -n chatdomain`
+* in Cloud Foundry pushen: `cf push toDoApp`
 * Service hinzufügen (MLab, oder per CUPS eigene Datenbank-Verbindung, alternativ UMGEBUNGSVARIABLE setzen)
 * Erklärung
-  * wird ein Service hinzugefügt, wird eine Umgebungsvariable gesetzt - diese wird abgefragt und falls gefüllt als URL verwendet
+  * wird ein Service hinzugefügt, wird eine Umgebungsvariable gesetzt - diese enthält einen JSON-String
+  * diese wird abgefragt (falls nicht existiert einfach leeres Objekt) und falls sie die Attribute für die Services enthält, wird so der DB-URL gesetzt
 
 
