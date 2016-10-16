@@ -16,11 +16,29 @@ cloudFoundryService = JSON.parse(process.env.VCAP_SERVICES);
 }
 
 // configuration ===============================================================
-if(UMGEBUNGSVARIABLE) mongoose.connect('mongodb://'+UMGEBUNGSVARIABLE+"/toDo"); //Umgebungsvariable wurde aktiv eingetragen - wird bevorzugt
-else if ("mlab" in cloudFoundryService) mongoose.connect(cloudFoundryService.mlab[0].credentials.uri+"/toDo");
-else if ("user-provided" in cloudFoundryService) mongoose.connect(cloudFoundryService.user-provided[0].credentials.uri+"/toDo");
+var uri = "";
+if(UMGEBUNGSVARIABLE){
+    console.log("Umgebungsvariable mit externer DB wurde gesetzt.");
+    uri = 'mongodb://'+UMGEBUNGSVARIABLE+"/toDo"; //Umgebungsvariable wurde aktiv eingetragen - wird bevorzugt
+}
+else if ("mlab" in cloudFoundryService) {
+    console.log("MLAB-Service in PCF wird verwendet!");
+    uri =  cloudFoundryService.mlab[0].credentials.uri+"/toDo";
+}
+else if ("user-provided" in cloudFoundryService){
+    console.log("Eigener CUPS Cloud Foundry Service (externe DB) wird verwendet!");
+    uri = cloudFoundryService['user-provided'][0].credentials.uri+"/toDo";
+}
 
-else mongoose.connect(database.localUrl);       // Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
+else {
+    console.log("Umgebungsvariable nicht gesetzt, Service-Variable nicht gefunden, lokale Einstellungen werden verwendet!");
+    uri = database.localUrl;    
+}// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
+
+console.log("Datenbank-Verbindung wird aufgebaut. URI: "+uri);
+mongoose.connect(uri);
+
+
 
 app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev')); // log every request to the console
