@@ -1,22 +1,11 @@
 # Sample MEAN App
 
-Diese Web-App enthält eine Reihe von wichtigen Angular-Funktionen (z.B. CRUD-Operatio) und dient als Vorlega für Projekte.
+A simple web-app demonstrating a CRUD-application written with the MEAN-Stack: MongoDB, Express, AngularJS and Node.js
 
 ## TechStack
 
-- Node.js und npm (Node Package Manager)
+- Node.js and npm (Node Package Manager)
 - MongoDB (lokaler Datenbank URL wird konfiguriert in `config/database.js`)
-
-
-
-## Enthaltene Samples
-
-Dieses Projekt wird stets erweitert. Momentan sind enthalten:
-- Routing
-- CRUD
-- Navigation
-
-
 
 ___
 # Deployment
