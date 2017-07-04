@@ -1,0 +1,7 @@
+# DS-Store-Dateien
+.DS_Store
+
+# Grunt
+node_modules/*
+.idea/
+.brackets.json

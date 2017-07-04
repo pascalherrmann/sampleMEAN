@@ -12,6 +12,23 @@ var controllers = angular.module('toDoAppControllers', []);
 
     });
 
+	controllers.controller('WikiController', function($scope, $http, $route) {
+
+
+                var start = $route.current.params.START;
+
+                var finish = $route.current.params.FINISH;
+
+        $scope.start = start
+        $scope.finish = finish
+
+         $http.get("wiki/"+start+"/"+finish).then(function (status) { //dann muss auch im Controller then davor
+            $scope.names = status.data;
+        });
+
+
+    });
+
     controllers.controller('ToDosController', function($scope, $http, ToDoFactory) {
 
             $scope.loading = true;

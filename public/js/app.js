@@ -27,6 +27,10 @@ toDoApp.config(['$routeProvider',
                 templateUrl: 'html/editToDo.html',
                 controller: 'EditToDoController'
             }).
+                when('/wiki/:START/:FINISH', {
+                templateUrl: 'html/wiki.html',
+                controller: 'WikiController'
+            }).
                 when('/classic', {
                 templateUrl: 'html/classic.html',
                 controller: 'ClassicController'

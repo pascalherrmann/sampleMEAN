@@ -1,5 +1,10 @@
 var Todo = require('./models/todo');
 
+var _ = require('lodash');
+var neo4j = require('neo4j-driver').v1;
+var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "penisfisch"));
+
+
 function getTodos(res) {
     Todo.find(function (err, todos) {
 
@@ -84,6 +89,46 @@ module.exports = function (app) {
             res.json(todo); // return all todos in JSON format
         });
     });
+
+
+
+
+    app.get('/wiki/:start/:finish', function (req, res) {
+
+
+        var start = req.params.start
+        var finish = req.params.finish
+        var session = driver.session();
+
+// Run a Cypher statement, reading the result in a streaming manner as records arrive:
+session
+//  .run("MATCH (p0:Page {title:'Neo4j'}), (p1:Page {title:'Porsche 911'}),p = shortestPath((p0)-[*..7]->(p1)) RETURN p AS name")
+  .run("MATCH (p0:Page {title: {startParam} }), (p1:Page {title: {endParam} }),p = shortestPath((p0)-[*..7]->(p1)) RETURN p AS name", {startParam: start, endParam: finish})
+  .subscribe({
+    onNext: function (record) {
+      console.log(record.get('name'));
+
+        result = record.get('name')
+
+                            res.json(result.segments); // return all todos in JSON format
+
+    },
+    onCompleted: function () {
+      session.close();
+
+    },
+    onError: function (error) {
+      console.log(error);
+    }
+  });
+
+
+    })
+
+
+
+
+
 
     // application -------------------------------------------------------------
     app.get('*', function (req, res) {
