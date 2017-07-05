@@ -1,8 +1,46 @@
-<h1>Von {{start}} zu {{finish}}:</h1>
-
-    <li ng-repeat="x in names">
-      {{ x.start.properties.title }}
-    </li>
-<li ng-show="names"> {{finish}}</li>
+<center>
 
 
+
+    <div class="row" ng-show="new">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+
+            <div class="form-group">
+                <label for="inputlg">Start</label>
+                <input class="form-control input-lg" id="inputlg" type="text" placeholder="Start" ng-model="start" uib-typeahead="player as player for player in getAutocomplete($viewValue)" typeahead-loading="loadingLocations" autocomplete="off" typeahead-wait-ms=100>
+                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                <div ng-show="noResults">
+                    <i class="glyphicon glyphicon-remove"></i> No Results Found
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputlg">Finish</label>
+                <input class="form-control input-lg" id="inputlg" type="text" placeholder="Finish" ng-model="finish" uib-typeahead="player as player for player in getUsernamesForTypeAhead($viewValue)" autocomplete="off" typeahead-wait-ms=100>
+            </div>
+
+            <button type="button" class="btn btn-success btn-lg" ng-click="search(start, finish);new=false;">Let's start!</button>
+
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+
+
+    <div ng-hide="!names || new">
+
+        <h1>Von {{start}} zu {{finish}}:</h1>
+
+        <li ng-repeat="x in names">
+            {{ x.start.properties.title }}
+        </li>
+        <li ng-show="names"> {{finish}}</li>
+
+        <br>
+        <button type="button" class="btn btn-success btn-lg" ng-click="new=true;names=null;">Try again!</button>
+
+    </div>
+
+    <img src="img/hourglass.svg" ng-show="!names && !new" width="33%" alt="Logo" />
+
+</center>

@@ -9,7 +9,9 @@ var toDoApp = angular.module('toDoApp', [
     'toDoAppDirectives',
     // Angular-Erweiterungen/Frameworks
     'ngRoute',      
-    'ngCookies'
+    'ngCookies',
+    //weitere
+    'ui.bootstrap'
 ]);
 
 // Routing
@@ -28,6 +30,10 @@ toDoApp.config(['$routeProvider',
                 controller: 'EditToDoController'
             }).
                 when('/wiki/:START/:FINISH', {
+                templateUrl: 'html/wiki.html',
+                controller: 'WikiController'
+            }).
+                when('/wiki', {
                 templateUrl: 'html/wiki.html',
                 controller: 'WikiController'
             }).

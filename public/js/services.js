@@ -1,8 +1,8 @@
-var servies = angular.module('toDoAppServices', []);
+var services = angular.module('toDoAppServices', []);
 
 	// super simple service
 	// each function returns a promise object 
-	servies.factory('ToDoFactory', ['$http',function($http) {
+	services.factory('ToDoFactory', ['$http',function($http) {
 		return {
 			getAll : function() {
 				return $http.get('/api/todos');
@@ -21,3 +21,24 @@ var servies = angular.module('toDoAppServices', []);
 			}
 		}
 	}]);
+
+
+services.factory("utilServices", ["$http", function ($http) {
+    return {
+        getTypeAhead: function (value) {
+            return $http.get("wiki/" + value).then(function (response) {
+                return response.data
+               /* return response.data.map(function (item) {
+                    return item.username;
+                });*/
+            });
+        },
+        getCache: function () {
+            return $http.get("api/admin/cache");
+        },
+        cleanCache: function () {
+            return $http.post("api/cleanCache/");
+        }
+    };
+
+}]);
